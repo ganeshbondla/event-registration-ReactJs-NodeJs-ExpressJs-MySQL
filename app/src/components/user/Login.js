@@ -33,7 +33,7 @@ const Login = () => {
       <div className="container p-3 mt-3">
         <div className="row">
           <div className="col-md-6 mb-2">
-            <img className="img-fluid" src="./img/login.png" />
+            <img alt="Login" className="img-fluid" src="./img/login.png" />
           </div>
           <div className="col-md-6 mb-2 my-auto">
             <div className="p-4 border rounded shadow">
@@ -44,26 +44,26 @@ const Login = () => {
               </div>
               <hr />
               <form onSubmit={submitTheFrom}>
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="email"
-                    class="form-control"
+                    className="form-control"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     placeholder="Enter Username / Email"
                     onChange={addUserName}
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="password"
-                    class="form-control"
+                    className="form-control"
                     id="exampleInputPassword1"
                     placeholder="Enter Password"
                     onChange={addPassword}
                   />
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">
+                <button type="submit" className="btn btn-primary btn-block">
                   Get Me In
                 </button>
               </form>

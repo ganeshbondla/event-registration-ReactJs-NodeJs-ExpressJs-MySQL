@@ -6,12 +6,12 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 const Header = () => {
   return (
     <div className="container-fluid">
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <Link class="navbar-brand" to="/">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <Link className="navbar-brand" to="/">
           Events POC
         </Link>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-toggle="collapse"
           data-target="#navbarNavAltMarkup"
@@ -19,20 +19,20 @@ const Header = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <Link class="nav-item nav-link" to="/">
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
+            <Link className="nav-item nav-link" to="/">
               Home
             </Link>
-            <Link class="nav-item nav-link" to="/events">
+            <Link className="nav-item nav-link" to="/events">
               Events
             </Link>
-            <Link class="nav-item nav-link" to="/login">
+            <Link className="nav-item nav-link" to="/login">
               Login
             </Link>
-            <Link class="nav-item nav-link" to="/register">
+            <Link className="nav-item nav-link" to="/register">
               Register
             </Link>
           </div>
