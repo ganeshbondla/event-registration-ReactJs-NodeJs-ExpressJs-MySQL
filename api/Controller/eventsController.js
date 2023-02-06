@@ -55,6 +55,7 @@ router.post("/create/", (req, res) => {
   }
 });
 
+// Update
 router.put("/update/", (req, res) => {
   try {
     const event_id = req.body.event_id;
@@ -101,6 +102,121 @@ router.put("/update/", (req, res) => {
                 message: "Data Updated Success",
               });
             }
+          });
+        }
+      }
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      error,
+    });
+  }
+});
+
+// Delete
+router.delete("/delete/:eventid", (req, res) => {
+  try {
+    const eventid = req.params.eventid;
+
+    //checking the existing
+    var checkExisting = `SELECT * FROM events_list WHERE event_id='${eventid}'`;
+
+    db.query(checkExisting, (error, results) => {
+      if (error) {
+        res.json({
+          success: false,
+          error,
+        });
+      } else {
+        if (results.length === 0) {
+          res.json({
+            success: false,
+            message: "Event Id not Found!, Not Deleted",
+          });
+        } else {
+          var deleteOne = `DELETE FROM events_list WHERE event_id='${eventid}'`;
+          db.query(deleteOne, (error, results) => {
+            if (error) {
+              res.json({
+                success: false,
+                message: "Event is not deleted",
+                error,
+              });
+            } else {
+              res.json({
+                success: true,
+                message: "Event is Deleted Success",
+              });
+            }
+          });
+        }
+      }
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      error,
+    });
+  }
+});
+
+// Event By Id
+router.get("/event/:eventid", (req, res) => {
+  try {
+    const eventid = req.params.eventid;
+
+    var checkExisting = `SELECT * FROM events_list WHERE event_id='${eventid}'`;
+
+    db.query(checkExisting, (error, results) => {
+      if (error) {
+        res.json({
+          success: false,
+          error,
+        });
+      } else {
+        if (results.length === 0) {
+          res.json({
+            success: false,
+            message: "Event Id not Found!",
+          });
+        } else {
+          res.json({
+            success: true,
+            results,
+          });
+        }
+      }
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      error,
+    });
+  }
+});
+
+//get list of events
+router.get("/list/", (req, res) => {
+  try {
+    var data = req.body;
+    var listEvents = `SELECT * FROM events_list`;
+    db.query(listEvents, (error, results) => {
+      if (error) {
+        res.json({
+          success: false,
+          error,
+        });
+      } else {
+        if (results.length === 0) {
+          res.json({
+            success: false,
+            message: "No Events",
+          });
+        } else {
+          res.json({
+            success: true,
+            results,
           });
         }
       }
