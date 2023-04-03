@@ -1,5 +1,5 @@
 Event Registration/Booking
 
-Front-end : ReactJs, CSS, JS
-Back-end : NodeJS, Express
+Front-end : ReactJs, CSS, JS <br>
+Back-end : NodeJS, Express <br>
 Database : MySQL
