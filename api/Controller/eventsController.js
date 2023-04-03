@@ -4,6 +4,18 @@ const db = require("../config/dbConfig");
 
 var router = express.Router();
 
+// file upload code
+var multer = require("multer");
+var myLocalstorage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, "./images");
+  },
+  filename: function (req, file, callback) {
+    callback(null, Date.now() + "" + file.originalname);
+  },
+});
+var upload = multer({ storage: myLocalstorage });
+
 router.get("/", (req, res) => {
   try {
     res.json({
@@ -19,7 +31,7 @@ router.get("/", (req, res) => {
 });
 
 // Create An Event
-router.post("/create/", (req, res) => {
+router.post("/create/", upload.single("myImage"), (req, res) => {
   try {
     const event_id = Math.floor(10000 * Math.random() + 99999);
     const event_name = req.body.event_name;
@@ -28,9 +40,10 @@ router.post("/create/", (req, res) => {
     const event_desc = req.body.event_desc;
     const event_status = req.body.event_status;
     const event_deleted = req.body.event_deleted;
+    const event_image = req.file.path;
 
-    var sql = `INSERT INTO events_list(event_id,event_name,event_amount,event_date,event_description,status,isDeleted) 
-    VALUES ('${event_id}','${event_name}','${amount}','${event_date}','${event_desc}','${event_status}','${event_deleted}')`;
+    var sql = `INSERT INTO events_list(event_id,event_name,event_amount,event_date,event_description,event_image,status,isDeleted) 
+    VALUES ('${event_id}','${event_name}','${amount}','${event_date}','${event_desc}','${event_image}','${event_status}','${event_deleted}')`;
 
     db.query(sql, (err, results) => {
       if (err) {
@@ -199,7 +212,6 @@ router.get("/event/:eventid", (req, res) => {
 //get list of events
 router.get("/list/", (req, res) => {
   try {
-    var data = req.body;
     var listEvents = `SELECT * FROM events_list`;
     db.query(listEvents, (error, results) => {
       if (error) {

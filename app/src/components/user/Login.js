@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import Header from "./Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [inputEmail, setInputEmail] = useState("");
   const [mypassword, setKalyan] = useState("");
+  const [userLogin, setuserLogin] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
 
   const addUserName = (e) => {
     setInputEmail(e.target.value);
@@ -24,13 +29,33 @@ const Login = () => {
       password: mypassword,
     };
 
-    console.log(newLogin);
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newLogin),
+    };
+    fetch("http://localhost:3095/user/login/", options)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.success === true) {
+          setuserLogin(res.success);
+          setResponseMessage(res.message);
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("isLogged", res.success);
+          navigate("/user/myevents");
+        } else {
+          toast.error(`${res.message}`);
+          setuserLogin(res.success);
+          setResponseMessage(res.message);
+        }
+      });
   };
 
   return (
     <>
       <Header />
       <div className="container p-3 mt-3">
+        <ToastContainer />
         <div className="row">
           <div className="col-md-6 mb-2">
             <img alt="Login" className="img-fluid" src="./img/login.png" />
@@ -42,6 +67,7 @@ const Login = () => {
                   <b>Login</b>
                 </h5>
               </div>
+              {userLogin === false ? responseMessage : ""}
               <hr />
               <form onSubmit={submitTheFrom}>
                 <div className="form-group">

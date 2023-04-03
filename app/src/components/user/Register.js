@@ -9,18 +9,30 @@ const Register = () => {
   const [inputEmail, setInputEmail] = useState("");
   const [inputMobile, setInputMobile] = useState("");
   const [inputPassword, setInputPassword] = useState("");
+  const [userCreated, setUserCreated] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
 
   const registerUser = (e) => {
     e.preventDefault();
 
     const registerUser = {
-      name: inputName,
-      email: inputEmail,
-      mobile: inputMobile,
-      password: inputPassword,
+      userName: inputName,
+      userEmail: inputEmail,
+      userMobile: inputMobile,
+      userPassword: inputPassword,
     };
 
-    console.log(registerUser);
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(registerUser),
+    };
+    fetch("http://localhost:3095/user/create/", options)
+      .then((response) => response.json())
+      .then((res) => {
+        setUserCreated(res.success);
+        setResponseMessage(res.message);
+      });
   };
 
   return (
@@ -38,6 +50,20 @@ const Register = () => {
                   <b>Register</b>
                 </h5>
               </div>
+              {userCreated ? (
+                <>
+                  <div
+                    className={`alert alert-${
+                      userCreated ? "success" : "danger"
+                    }`}
+                    role="alert"
+                  >
+                    {responseMessage}
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
               <hr />
               <form onSubmit={registerUser}>
                 <div className="form-group">

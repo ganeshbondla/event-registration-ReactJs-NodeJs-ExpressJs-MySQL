@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 
 const MyProfile = () => {
+  const navigate = useNavigate();
+  const [userAuth, setUserAuth] = useState();
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token !== null || undefined) {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          nani_header_key: token,
+        },
+      };
+      fetch("http://localhost:3095/user/auth/", options)
+        .then((response) => response.json())
+        .then((res) => {
+          if (res.success === true) {
+            setUserAuth(res.success);
+          } else {
+            localStorage.removeItem("token");
+            navigate("/login");
+          }
+        });
+    } else {
+      navigate("/login");
+    }
+  }, []);
   return (
     <>
       <Header />

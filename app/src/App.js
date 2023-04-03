@@ -8,31 +8,34 @@ import EventList from "./components/user/Dashboard/ListEvents.js";
 import MyEvents from "./components/user/Dashboard/MyEvents.js";
 import MyProfile from "./components/user/Dashboard/MyProfile.js";
 import LogoutUser from "./components/user/Dashboard/Logout.js";
+import EventDetails from "./components/user/EventDetails.js";
+import DetailsOfEvent from "./components/user/Dashboard/DetailsOfEvent.js";
+import PrivateRoute from "./PrivateRoute/index.jsx";
 
 const App = () => {
-  const loginuser = false;
-
   return (
     <>
-      {loginuser ? (
-        <BrowserRouter>
-          <Routes>
-            <Route path="/user/events" element={<EventList />} />
-            <Route path="/user/myevents" element={<MyEvents />} />
-            <Route path="/user/profile" element={<MyProfile />} />
-            <Route path="/user/logout" element={<LogoutUser />} />
-          </Routes>
-        </BrowserRouter>
-      ) : (
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </BrowserRouter>
-      )}
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/user/events"
+            element={
+              <PrivateRoute>
+                <EventList />
+              </PrivateRoute>
+            }
+          />
+          <Route path="/user/myevents" element={<MyEvents />} />
+          <Route path="/user/profile" element={<MyProfile />} />
+          <Route path="/user/logout" element={<LogoutUser />} />
+          <Route path="/user/event/:eid" element={<DetailsOfEvent />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/event/:eid" element={<EventDetails />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 };
