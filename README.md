@@ -1,6 +1,6 @@
 Event Registration/Booking
 
-Front-End(UI) : ReactJs, CSS, JS <br>
+Front-End(UI) : ReactJs, HTML, CSS, JS <br>
 API Endpoints : NodeJS with Express Framework<br>
 Database : MySQL<br>
 
