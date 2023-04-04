@@ -1,8 +1,8 @@
 Event Registration/Booking
 
-Front-End(UI) : ReactJs, CSS, JS 
-API Endpoints : NodeJS with Express Framework
-Database : MySQL
+Front-End(UI) : ReactJs, CSS, JS <br>
+API Endpoints : NodeJS with Express Framework<br>
+Database : MySQL<br><br>
 
-Authentication / Authorization Managed In : JWT 
+Authentication / Authorization Managed In : JWT <br>
 Payment Gateway Used : Razorpay
