@@ -1,9 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const PrivateRoute = ({child}) => {
-    const navigate = useNavigate();
     const jwt = true;
-    return jwt ? child : navigate('/login');
+    return jwt ? child : <Navigate to="/login" />;
 }
 
 export default PrivateRoute;
